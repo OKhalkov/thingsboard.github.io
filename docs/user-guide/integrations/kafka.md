@@ -5,4 +5,4 @@ description: Kafka Integration guide
 
 ---
 {% assign docsPrefix = "pe/" %}
-{% include docs/pe/user-guide/integrations/mqtt.md %}
+{% include docs/pe/user-guide/integrations/kafka.md %}
