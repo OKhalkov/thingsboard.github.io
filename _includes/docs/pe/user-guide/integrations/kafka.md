@@ -11,6 +11,7 @@ Designed as a distributed, horizontally scalable system that provides capacity g
 
 In some scenarios, Kafka can be used instead of a message queue, in cases where there is no stable connection between the device and ThingsBoard.
 
+![image](/images/user-guide/integrations/kafka/kafka_integration_add_edit.png)
 
 ## Next steps
 
