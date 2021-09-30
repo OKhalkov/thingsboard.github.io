@@ -8,21 +8,32 @@ Kafka Integration — is an open-source distributed software message broker unde
 
 Designed as a distributed, horizontally scalable system that provides capacity growth both with an increase in the number and load from the sources, and the number of subscriber systems. Subscribers can be combined into groups. Supports the ability to temporarily store data for subsequent batch processing.
 
-In some scenarios, Kafka can be used instead of a message queue, in cases where there is no stable connection between the device and ThingsBoard.
-#
- ![image](/images/user-guide/integrations/mqtt-integration.png)
-#
-## Kafka Installation
+In some scenarios, Kafka can be used instead of a message queue, in cases where there is no stable connection between the device and an instance.
+
+![image](/images/user-guide/integrations/kafka/Kafka_main.png)
+
+### Kafka Installation
 [Apache Kafka](https://kafka.apache.org/) is an open-source stream-processing software platform.
 
-### Install ZooKeeper
+{% capture authorizationTypes %}
+Kafka<br/><small>Common installation</small>%,%loriot-account%,%templates/integration/loriot/loriot-account-authorization-type.md%br%
+Kafka Docker<br/>%,%basic-credential%,%templates/integration/loriot/thingsboard-basic-credentials.md{% endcapture %}
+
+{% include content-toggle.html content-toggle-id="IntegrationKafka" toggle-spec=authorizationTypes %}
+
+<div style="font-size: 20px; margin-bottom: 8px; font-weight: bold;">Enable security option</div>
+
+**Install ZooKeeper**
+
 Kafka uses ZooKeeper, so you need to first install ZooKeeper server:
 ```shell
 sudo apt-get install zookeeper
 ```
 {: .copy-code}
 
-### Install Kafka
+**Install Kafka**
+
+The second thing to install is Kafka:
 ```shell
 wget https://dlcdn.apache.org/kafka/3.0.0/kafka_2.13-3.0.0.tgz
 
@@ -33,7 +44,8 @@ mv kafka_2.13-3.0.0 /usr/local/kafka
 {: .copy-code}
 
 
-### Setup ZooKeeper Systemd Unit file
+**Setup ZooKeeper Systemd Unit file**
+
 Create systemd unit file for Zookeeper:
 ```shell
 sudo nano /etc/systemd/system/zookeeper.service
@@ -59,14 +71,15 @@ WantedBy=multi-user.target
 ```
 {: .copy-code}
 
-### Setup Kafka Systemd Unit file
+**Setup Kafka Systemd Unit file**
+
 Create systemd unit file for Kafka:
 ```shell
 sudo nano /etc/systemd/system/kafka.service
 ```
 {: .copy-code}
 
-Add the below content. Make sure to replace "**PUT_YOUR_JAVA_PATH**" with your real JAVA_HOME path as per the Java installed on your system, by default like “/usr/lib/jvm/java-11-openjdk-xxx”:
+Add the below content. Make sure to replace "`PUT_YOUR_JAVA_PATH`" with your real JAVA_HOME path as per the Java installed on your system, by default like “/usr/lib/jvm/java-11-openjdk-xxx”:
 ```shell
 [Unit]
 Description=Apache Kafka Server
@@ -92,7 +105,7 @@ sudo systemctl start kafka
 ```
 {: .copy-code}
 
-## Kafka installation using Docker
+### Kafka installation using Docker
 Create docker-compose file for services:
 ```shell
 nano docker-compose.yml
@@ -100,7 +113,7 @@ nano docker-compose.yml
 {: .copy-code}
 
 Add the following line to the yml file:
-```shell
+```yml
 services:
   zookeeper:
     restart: always
@@ -127,9 +140,9 @@ services:
 {: .copy-code}
 
 Where:
-- restart: always - automatically start Kafka service in case of system reboot and restart in case of failure.;
-- Ports: 2181:2181 - connect local port 2181 to exposed internal zookeeper port zookeeper;
-- Ports: 9092:9092 - connect local port 9092 to exposed internal kafka port kafka;
+- `restart:` `always` - automatically start Kafka service in case of system reboot and restart in case of failure.;
+- `Ports:` `2181:2181` - connect local port 2181 to exposed internal zookeeper port zookeeper;
+- `Ports:` `9092:9092` - connect local port 9092 to exposed internal kafka port kafka;
 
 Then, from the folder with this file, run the command:
 ```shell
@@ -137,25 +150,28 @@ docker-compose up -d
 ```
 {: .copy-code}
 
-### Create Uplink Converter
+**Create Uplink Converter**
+
+To create Uplink converter, go to the Data Converters section and click Add Data Converter, then Create New Converter. Name it "Uplink (Kafka)" and select the uplink type. Use debug mode when you need to parse decoder events.
+
+NOTE. While debug mode is very useful for development and troubleshooting, leaving it enabled in production mode can significantly increase the disk space used by the database since all debug data is stored there. After debugging is complete, it is highly recommended turning off debug mode.
+
+For example, you can use the following code, copy it to the decoder function section:
 
 ```js
-// Decode an uplink message from a buffer
-// payload - array of bytes
-// metadata - key/value object
-
 /** Decoder **/
-// decode payload to string
-var payloadStr = decodeToJson(payload);
 // decode payload to JSON
+   var payloadStr = decodeToJson(payload);
+
+// decode payload to String
 // var data = decodeToJson(payload);
 // var groupName = 'thermostat devices';
 // use assetName and assetType instead of deviceName and deviceType
 // to automatically create assets instead of devices.
 // var assetName = 'Asset A';
 // var assetType = 'building';
-// Result object with device/asset attributes/telemetry data
 
+// Result object with device/asset attributes/telemetry data
    var result = {
 // Use deviceName and deviceType or assetName and assetType, but not both.
    deviceName: payloadStr.deviceName,
@@ -170,6 +186,7 @@ var payloadStr = decodeToJson(payload);
 function decodeToString(payload) {
    return String.fromCharCode.apply(String, payload);
 }
+
 function decodeToJson(payload) {
    // covert payload to string.
    var str = decodeToString(payload);
@@ -180,42 +197,77 @@ function decodeToJson(payload) {
 return result;
 ```
 {: .copy-code}
+
+Example of payload:
+```json
+{
+        "deviceName":"SN-111",
+        "deviceType":"default",
+        "attributes":{
+            "model":"Model A"
+        },
+        "telemetry":[
+            {
+                "ts":1607731932000,
+                "values":{
+                    "battery":3.99,
+                    "temperature":27.05
+                }
+            },
+            {
+                "ts":1607775132000,
+                "values":{
+                    "battery":3.98,
+                    "temperature":27.06
+        }}]
+}
+```
+{: .copy-code}
+{% include images-gallery.html imageCollection="Create Uplink Converter" %}
+
 You can change the parameters and decoder code when creating a converter or editing. If the converter has already been created, click the pencil icon to edit it. Copy the sample converter configuration (or use your own configuration) and paste it into the decoder function. Then save the changes by clicking the checkmark icon.
 
 
-ТУТ КАРТИНКИ
-
-### Create Integration
+**Create Integration**
+ 
 After creating the Uplink converter, it is possible to create an integration.
 
-ТУТ КАРТИНКИ
+{% include images-gallery.html imageCollection="Kafka Integration" %}
 
 With these settings, the integration will request updates from the Kafka broker every 5 seconds. And if set a topic does not exist at the broker, it will be created automatically.
 
-### Send test Uplink message
+**Send test Uplink message**
+
 You can simulate a message from a device or server using a terminal. To send an uplink message, you need a Kafka endpoint URL from the integration.
 ```shell
 echo "{\"deviceName\":\"SN-111\",\"deviceType\":\"default\",\"attributes\":{\"model\":\"Model A\"},\"telemetry\":[{\"ts\":1527863143000,\"values\":{\"battery\":9.99,\"temperature\":27.99}},{\"ts\":1527863044000,\"values\":{\"battery\":9.99,\"temperature\":99.99}}]}" | /usr/local/kafka/bin/kafka-console-producer.sh --broker-list YOUR_KAFKA_ENDPOINT_URL:9092 --topic my-topic > /dev/null
 ```
 {: .copy-code}
-
-тут скрин
+{% include images-gallery.html imageCollection="Kafka_integration_test_send_msg_result" %}
 
 You can also check through the console what data came to Kafka
-```shell
+```yml
 /usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server YOUR_KAFKA_ENDPOINT_URL:9092 --topic my-topic --from-beginning
 ```
 {: .copy-code}
 
-### Advanced Usage: Create Downlink Converter
+**Advanced Usage: Create Downlink Converter**
 
-### **Дописать**
+## **Дописать**
 
-
-Kafka Node sends messages to Kafka brokers. Expect messages with any message type. Will send record via Kafka producer to Kafka server.
+Also, recommend that you familiarize with the [Kafka Rule Node](https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/external-nodes/#kafka-node):
+Kafka Node sends messages to Kafka broker. Expect messages with any message type. Will send record via Kafka producer to Kafka server.
 
 
 You can also connect an additional module Kafka Streams API for processing the calculation of incoming or outgoing Kafka data
+
+
+
+
+
+
+
+
 
 ## Next steps
 

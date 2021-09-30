@@ -3,10 +3,10 @@ layout: docwithnav-pe
 title: Kafka Integration
 description: Kafka Integration guide
 
----
-Kafka Integration:
-0:
-image: /images/user-guide/integrations/kafka/kafka_integration_add_edit.png
+
+Kafka main:
+    0:
+        image: /images/user-guide/integrations/kafka/Kafka_main.png
 
 ---
 {% assign docsPrefix = "pe/" %}
