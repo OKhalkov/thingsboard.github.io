@@ -18,7 +18,6 @@ Kafka in docker container<br/>%,%basic-credential%,%templates/integration/kafka/
 
 {% include content-toggle.html content-toggle-id="IntegrationKafka" toggle-spec=authorizationTypes %}
 
-
 **Create Uplink Converter**
 
 To create **Uplink converter**, go to the **Data Converters** section and click **Add Data Converter**, then **Create New Converter**. Name it "**Uplink (Kafka)**" and select the **uplink** type. Use debug mode when you need to parse decoder events.
