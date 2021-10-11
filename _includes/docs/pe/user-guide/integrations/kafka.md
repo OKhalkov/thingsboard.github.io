@@ -14,7 +14,8 @@ In some scenarios, Kafka can be used instead of a message queue, in cases where 
 
 {% capture authorizationTypes %}
 Kafka<br/><small>Common installation</small>%,%kafka%,%templates/integration/kafka/kafka-common-installation%br%
-Kafka in docker container<br/>%,%basic-credential%,%templates/integration/kafka/kafka-docker-installation{% endcapture %}
+Kafka in docker container<br/>%,%basic-credential%,%templates/integration/kafka/kafka-docker-installation%br%
+Kafka Confluent<br/><small>Cloud solution</small>%,%basic-credential%,%/templates/integration/kafka/kafka-confluent{% endcapture %}
 
 {% include content-toggle.html content-toggle-id="IntegrationKafka" toggle-spec=authorizationTypes %}
 
@@ -135,7 +136,7 @@ To get functionality such as Kafka Producer, you need to use the [Kafka Rule Nod
 
 With this Node, you can send the preprocessed data to the required Kafka topic.
 
-**Note**: using the same broker for uplink and downlink can lead to data loops.
+**Note**: using the same broker for uplink and downlink connections can lead to data loops.
 
 ## Next steps
 
