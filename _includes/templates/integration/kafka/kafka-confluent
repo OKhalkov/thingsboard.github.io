@@ -6,17 +6,18 @@
 
 To begin using the Cloud platform open the [site of confluent](https://www.confluent.io/) to start registration.
 
-Click "GET STARTED FREE", then in the loaded page should be selected the Cloud tab, then fill in the required fields of the 'Sign up' section. 
-
-Confirm the completed fields ("START FREE"). After, use the verification link that was sent to your specified mail.
-
 {% capture kafka_memo %}
 **Memo:** The Confluent interface may change in the future.
 {% endcapture %}
 
 {% include templates/info-banner.md content=kafka_memo %}
 
+Click "GET STARTED FREE", then in the loaded page should be selected the **Cloud** tab, then fill in the required fields of the **Sign up** section. 
+
+Confirm the completed fields ("START FREE"). Then use the verification link that was sent to your specified mail.
+
 {% include images-gallery.html imageCollection="Kafka_confluent_registration" %}
+<br/>
 
 Create cloud environment and cluster. Add payment method if you don't add earlier yet. 
 
@@ -25,7 +26,6 @@ Create cloud environment and cluster. Add payment method if you don't add earlie
 <br/>
 Before proceeding with adding integrations, you will need to create a suitable **Uplink Converter**.
 
-<br/>
 
 **Create Uplink Converter**
 

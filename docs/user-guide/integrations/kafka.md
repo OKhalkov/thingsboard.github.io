@@ -63,11 +63,11 @@ Kafka_cloud_bootstrap_1:
 
 kafka_integration_properties_1:
     0:
-        image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_integration_properties_API keys_1.png
+        image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_integration_properties_API_keys_1.png
     1:
-        image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_integration_properties_API keys_2.png
+        image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_integration_properties_API_keys_2.png
     2:
-        image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_integration_properties_API keys_3.png
+        image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_integration_properties_API_keys_3.png
     3:
         image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_integration_properties_1.png
 
