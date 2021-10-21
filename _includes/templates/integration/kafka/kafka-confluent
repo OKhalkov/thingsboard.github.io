@@ -17,6 +17,7 @@ Click "GET STARTED FREE", then in the loaded page should be selected the **Cloud
 Confirm the completed fields ("START FREE"). Then use the verification link that was sent to your specified mail.
 
 {% include images-gallery.html imageCollection="Kafka_confluent_registration" %}
+
 <br/>
 
 Create cloud environment and cluster. Add payment method if you don't add earlier yet. 
@@ -171,7 +172,7 @@ To generate the required API key and secret for it, in the cluster you must go t
 
 {% include images-gallery.html imageCollection="kafka_integration_properties_1" %}
 
-It remains to create a topic on Confluent. To do this, select the "Topics" menu, select "Create Topics", set the name to my-topic (It is important that the topics coincide with the specified in the integration. At the next stage, if necessary, you can change the Storage and Message size parameters, and then confirm the creation by the Create with defaults button.
+It remains to create a topic on Confluent. To do this, select the "Topics" menu, select "Create Topics", set the name to **my-topic** (It is important that the topics coincide with the specified in the integration. At the next stage, if necessary, you can change the Storage and Message size parameters, and then confirm the creation by the Create with defaults button.
 
 {% include images-gallery.html imageCollection="kafka_confluent_create_topic" %}
 
@@ -180,7 +181,7 @@ With these settings, the integration will request updates from the Kafka broker 
 **Send test Uplink message from Confluent Cloud**
 
 You can simulate a message from the Confluent cloud to ThingsBoard, for this use the available Confluent functionality.
-Navigate to the topics in the cluster, the Messages tab, and select the Produce a new message to this topic.
+Navigate to the topics in the cluster, the Messages tab, and select the **Produce a new message to this topic**.
 
 {% include images-gallery.html imageCollection="kafka_confluent_send_payload_to_tb" %}
 

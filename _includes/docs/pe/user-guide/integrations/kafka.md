@@ -20,14 +20,18 @@ Kafka Confluent<br/><small>Cloud solution</small>%,%confluent%,%/templates/integ
 {% include content-toggle.html content-toggle-id="installationType" toggle-spec=installationTypes %}
 
 
-
 **Advanced Usage: Kafka Producer (Downlink)**
 
 To get functionality such as Kafka Producer, you need to use the [Kafka Rule Node](https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/external-nodes/#kafka-node) in which you can specify Bootstrap servers, Topic and other parameters to connect to the Kafka broker:
 
 With this Node, you can send the preprocessed data to the required Kafka topic.
 
+
+{% capture kafka_note_downnlink %}
 **Note**: Using the same broker for uplink and downlink connections can lead to data loops.
+{% endcapture %}
+
+{% include templates/info-banner.md content=kafka_note_downnlink %}
 
 ## Next steps
 

@@ -40,7 +40,6 @@ Kafka_confluent_registration:
     2:
         image: /images/user-guide/integrations/kafka/confluent/registration/kafka_registration_3.png
 
-
 Kafka_cloud_environment:
     0:
         image: /images/user-guide/integrations/kafka/confluent/create_integration/kafka_cloud_environment_1.png
