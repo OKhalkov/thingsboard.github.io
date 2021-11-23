@@ -30,7 +30,7 @@ sudo nano /etc/systemd/system/zookeeper.service
 ```
 {: .copy-code}
 
-Add below content:
+Add below follow content:
 ```shell
 [Unit]
 Description=Apache Zookeeper server
@@ -105,7 +105,6 @@ var payloadJsn = decodeToJson(payload);
 
 // decode payload to String
 // var payloadStr = decodeToString(payload);
-
 // var groupName = 'thermostat devices';
 // use assetName and assetType instead of deviceName and deviceType
 // to automatically create assets instead of devices.
@@ -127,7 +126,6 @@ var payloadJsn = decodeToJson(payload);
 function decodeToString(payload) {
    return String.fromCharCode.apply(String, payload);
 }
-
 function decodeToJson(payload) {
    // covert payload to string.
    var str = decodeToString(payload);
@@ -135,7 +133,6 @@ function decodeToJson(payload) {
    var data = JSON.parse(str);
    return data;
 }
-
 return result;
 ```
 {: .copy-code}

@@ -1,6 +1,7 @@
 {% assign feature = "Platform Integrations" %}{% include templates/pe-feature-banner.md %}
 
-
+* TOC
+{:toc}
 
 ## Kafka Integration
 
@@ -12,15 +13,17 @@ In some scenarios, Kafka can be used instead of a message queue, in cases where 
 
 ![image](/images/user-guide/integrations/kafka/Kafka_main.png)
 
+## Choose Kafka type
+
 {% capture installationTypes %}
 Kafka<br/><small>Common installation</small>%,%common%,%templates/integration/kafka/kafka-common-installation%br%
 Kafka in docker container<br/><small>Separate deployment environment</small>%,%docker%,%templates/integration/kafka/kafka-docker-installation%br%
-Kafka Confluent<br/><small>Cloud solution</small>%,%confluent%,%/templates/integration/kafka/kafka-confluent{% endcapture %}
+Confluent Cloud<br/><small>Cloud solution</small>%,%confluent%,%/templates/integration/kafka/kafka-confluent{% endcapture %}
 
 {% include content-toggle.html content-toggle-id="installationType" toggle-spec=installationTypes %}
 
 
-**Advanced Usage: Kafka Producer (Downlink)**
+## Advanced Usage: Kafka Producer (Downlink)
 
 To get functionality such as Kafka Producer, you need to use the [Kafka Rule Node](https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/external-nodes/#kafka-node) in which you can specify Bootstrap servers, Topic and other parameters to connect to the Kafka broker:
 
